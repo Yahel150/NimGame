@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nim Game</title>
+  <link rel="stylesheet" href="src/web/styles.css">
+</head>
+<body>
+  <main class="page">
+    <section id="modePage" class="screen active">
+      <div class="center-content narrow">
+        <h2>Choose Opponent</h2>
+        <p class="screen-text">Tap one option to continue. In games against the computer, it evaluates the opening position, decides whether to move first, and will win every game.</p>
+
+        <div class="option-group">
+          <div class="mode-selection">
+            <button class="option-button mode-button" data-mode="Player vs Computer">
+              <span class="mode-button-title">Player vs Computer</span>
+              <span class="mode-button-description">
+                The computer recognizes the winning position from the start, decides whether to begin, and plays perfectly. It will win every game.
+              </span>
+            </button>
+          </div>
+
+          <div class="mode-selection">
+            <button class="option-button mode-button" data-mode="Player vs Player">
+              <span class="mode-button-title">Player vs Player</span>
+              <span class="mode-button-description">
+                Two players play against each other on the same device.
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gameTypePage" class="screen">
+      <div class="center-content wide">
+        <h2>Choose Game Type</h2>
+        <p class="screen-text">Each card shows the piles and the rule of that version.</p>
+
+        <div class="rule-card">
+          <img src="assets/images/piles1357.png" alt="Piles 1 3 5 7" class="game-preview-image">
+          <div class="rule-card-content">
+            <h3>Game 1 — Misère Nim</h3>
+            <p class="rule-line"><strong>Piles:</strong> 1, 3, 5, 7</p>
+            <p class="rule-line"><strong>Rules:</strong> On each turn, a player removes stones from only one pile. The player who takes the last stone loses.</p>
+            <button class="option-button game-button" data-game="Game 1">Choose Game 1</button>
+          </div>
+        </div>
+
+        <div class="rule-card">
+          <img src="assets/images/piles12345.png" alt="Piles 1 2 3 4 5" class="game-preview-image">
+          <div class="rule-card-content">
+            <h3>Game 2 — Nim (Forbidden First Pile)</h3>
+            <p class="rule-line"><strong>Piles:</strong> 1, 2, 3, 4, 5</p>
+            <p class="rule-line"><strong>Rules:</strong> On each turn, a player removes stones from only one pile. The first player to take a stone from the first pile loses.</p>
+            <button class="option-button game-button" data-game="Game 2">Choose Game 2</button>
+          </div>
+        </div>
+
+        <div class="rule-card">
+          <img src="assets/images/17coins.png" alt="One pile of 17 stones" class="game-preview-image">
+          <div class="rule-card-content">
+            <h3>Game 3 — Classic Nim</h3>
+            <p class="rule-line"><strong>Piles:</strong> One pile of 17</p>
+            <p class="rule-line"><strong>Rules:</strong> On each turn, a player may remove 1, 2, or 3 stones. The player who takes the last stone loses.</p>
+            <button class="option-button game-button" data-game="Game 3">Choose Game 3</button>
+          </div>
+        </div>
+
+        <div class="rule-card">
+          <img src="assets/images/custom.png" alt="Custom game" class="game-preview-image">
+          <div class="rule-card-content">
+            <h3>Game 4 — Custom Nim</h3>
+            <p class="rule-line"><strong>Description:</strong> Create your own custom Nim game.</p>
+            <button class="option-button game-button" data-game="Custom">Configure Custom Game</button>
+          </div>
+        </div>
+
+        <button id="gameTypeBackButton" class="back-button">Back</button>
+      </div>
+    </section>
+
+    <section id="customConfigPage" class="screen">
+      <div class="center-content narrow">
+        <h2>Custom Game Settings</h2>
+        <p class="screen-text">Configure your custom Nim variant.</p>
+
+        <div class="summary-card" style="text-align: left; width: 100%;">
+          <div class="config-row">
+            <label for="customFamily">Game Family:</label>
+            <select id="customFamily">
+              <option value="multi_pile">Multi-Pile</option>
+              <option value="take_away">Single Pile</option>
+            </select>
+          </div>
+
+          <div id="multiPileOptions" class="config-section">
+            <div class="config-row">
+              <label for="customHeaps">Piles (comma separated, e.g. 1,3,5):</label>
+              <input type="text" id="customHeaps" value="1,3,5,7">
+            </div>
+          </div>
+
+          <div id="takeAwayOptions" class="config-section" style="display: none;">
+            <div class="config-row">
+              <label for="customTotalStones">Total Stones:</label>
+              <input type="number" id="customTotalStones" value="21" min="1">
+            </div>
+            <div class="config-row">
+              <label for="customMaxTake">Max Stones per turn (k):</label>
+              <input type="number" id="customMaxTake" value="3" min="1">
+            </div>
+          </div>
+
+          <div class="config-row">
+            <label for="customWinRule">Winning Condition:</label>
+            <select id="customWinRule">
+              <option value="last_stone_loses">Last stone loses</option>
+              <option value="last_stone_wins">Last stone wins</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <button id="customConfigBackButton" class="back-button">Back</button>
+          <button id="customConfigNextButton">Apply & Continue</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="stonePage" class="screen">
+      <div class="center-content wide">
+        <h2>Choose Stone Type</h2>
+        <p class="screen-text">This changes only how the pieces look on the game board.</p>
+
+        <div class="stone-grid">
+          <div class="stone-card">
+            <img src="assets/images/coin.png" alt="Coin" class="stone-preview-image">
+            <h3>Coins</h3>
+            <p class="rule-line">Use coin-style pieces during the game.</p>
+            <button class="option-button stone-button" data-stone="Coins">Choose Coins</button>
+          </div>
+
+          <div class="stone-card">
+            <img src="assets/images/matchstick.png" alt="Matchstick" class="stone-preview-image">
+            <h3>Matchsticks</h3>
+            <p class="rule-line">Use matchstick-style pieces during the game.</p>
+            <button class="option-button stone-button" data-stone="Matchsticks">Choose Matchsticks</button>
+          </div>
+
+          <div class="stone-card">
+            <img src="assets/images/stone.png" alt="Stone" class="stone-preview-image">
+            <h3>Stones</h3>
+            <p class="rule-line">Use stone-style pieces during the game.</p>
+            <button class="option-button stone-button" data-stone="Stones">Choose Stones</button>
+          </div>
+        </div>
+
+        <button id="stoneBackButton" class="back-button">Back</button>
+      </div>
+    </section>
+
+    <section id="summaryPage" class="screen">
+      <div class="center-content narrow">
+        <h2>Game Setup</h2>
+        <p class="screen-text">Review the current choices before entering the game screen.</p>
+
+        <div class="summary-card">
+          <p><strong>Opponent:</strong> <span id="summaryMode">Not selected</span></p>
+          <p><strong>Game type:</strong> <span id="summaryGame">Not selected</span></p>
+          <p><strong>Stone type:</strong> <span id="summaryStone">Not selected</span></p>
+        </div>
+
+        <div class="nav-row">
+          <button id="summaryBackButton" class="back-button">Back</button>
+          <button id="enterGameButton">Continue To Game</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="gamePage" class="screen">
+      <div class="game-layout">
+        <div class="game-top">
+          <div class="rule-summary-card">
+            <h2 id="gameTitle">Game Board</h2>
+            <p id="gameRuleSummary" class="rule-summary-text">Rule summary will appear here.</p>
+            <p id="turnLabel" class="turn-label">Turn: -</p>
+          </div>
+        </div>
+
+        <div id="gameMessage" class="game-message">Choose stones from one pile.</div>
+
+        <div id="gameBoard" class="game-board"></div>
+
+        <div class="game-bottom">
+          <div class="game-bottom-row">
+            <button id="gameBackButton" class="back-button">Back</button>
+
+            <div id="gameActions" class="game-actions">
+              <button id="confirmMoveButton" class="action-button" hidden>Confirm</button>
+              <button id="resetMoveButton" class="action-button" hidden>Reset</button>
+              <button id="skipMoveButton" class="action-button" hidden>Skip</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    window.__nimWasmReady = false;
+    window.__nimWasmLoadError = null;
+    window.Module = {
+      onRuntimeInitialized: function () {
+        window.__nimWasmReady = true;
+        window.dispatchEvent(new Event("nim-wasm-ready"));
+      }
+    };
+  </script>
+  <script
+    src="dist/nim.js"
+    onerror="window.__nimWasmLoadError='dist/nim.js could not be loaded. Build the WebAssembly files first.';window.dispatchEvent(new Event('nim-wasm-error'));"
+  ></script>
+  <script src="src/web/app.js"></script>
+</body>
+</html>
