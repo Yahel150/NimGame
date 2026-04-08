@@ -4,6 +4,14 @@ NimGame is a browser-based version of Nim. The main goal of the project is to im
 
 ## Video Demo
 
+### Part one
+https://github.com/user-attachments/assets/8c4348bc-4ab7-4377-91d3-afca66a43b41
+
+### Part two
+
+https://github.com/user-attachments/assets/e26b8f61-47ce-488a-8b64-7a94191043ae
+
+
 ## How to Play
 
   ### Choose Opponent
